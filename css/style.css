@@ -1317,7 +1317,7 @@ border-color: rgba(0, 150, 90, 0.6);
 }
 
 
-@media (max-width: 992px) {
+@media (max-width: 600px) {
   .hamburger {
     display: flex;
     flex-direction: column;
