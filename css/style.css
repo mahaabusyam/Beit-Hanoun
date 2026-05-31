@@ -1466,25 +1466,46 @@ border-color: rgba(0, 150, 90, 0.6);
 
 }
 
-.tooltip-trigger {
-  cursor: pointer;
+.chart-container {
+  width: 100%;
+  margin-top: 10px;
   position: relative;
+  cursor: pointer; 
+  -webkit-tap-highlight-color: transparent; 
 }
 
-.tooltip-trigger:hover::after,
-.tooltip-trigger:active::after {
-  content: attr(data-title);
+.chart-tooltip {
   position: absolute;
-  left: 240px; 
-  top: -20px;
-  background: rgba(0, 0, 0, 0.85);
+  top: -25px;       
+  right: 35px;       
+  background: rgba(0, 0, 0, 0.9);
   color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
   white-space: nowrap;
-  z-index: 100;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  opacity: 0;       
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
+.chart-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  right: 45%;        
+  border-width: 4px 4px 0;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent;
+}
 
+.chart-container:hover .chart-tooltip,
+.chart-container:active .chart-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  
