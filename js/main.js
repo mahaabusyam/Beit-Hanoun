@@ -137,3 +137,48 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(counter);
   });
 });
+
+function openDonationModal() {
+    document.getElementById('donationModal').classList.add('show');
+}
+
+function closeDonationModal() {
+    document.getElementById('donationModal').classList.remove('show');
+}
+
+function executeDonation() {
+    let nameInput = document.getElementById('modalDonorName').value.trim();
+    const amountInput = document.getElementById('modalAmount').value.trim();
+    const isAnonymous = document.getElementById('modalAnonCheck').checked;
+
+    if (!amountInput) {
+        alert("يرجى إدخال قيمة التبرع");
+        return;
+    }
+
+    let finalName = nameInput;
+    if (isAnonymous || nameInput === "") {
+        finalName = "فاعل خير";
+    }
+
+    const recentList = document.querySelector('.recent-list');
+    const newItemHtml = `
+        <div class="recent-item" style="animation: fadeIn 0.5s ease-in-out;">
+            <div class="amount-tag">${Number(amountInput).toLocaleString()} شيكل</div>
+            <div>
+                <div class="donor-info">
+                    <p class="donor-name">${finalName}</p>
+                    <p class="donor-time">منذ ثانية</p>
+                </div>
+                <div class="donor-avatar"><i class="fa-solid fa-user"></i></div>
+            </div>
+        </div>
+    `;
+
+    recentList.insertAdjacentHTML('afterbegin', newItemHtml);
+
+    document.getElementById('modalDonorName').value = "";
+    document.getElementById('modalAmount').value = "";
+    document.getElementById('modalAnonCheck').checked = false;
+    closeDonationModal();
+}
