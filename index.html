@@ -207,7 +207,7 @@
                  </div>
              </div>
              
-             <button class="btn btn-primary">تبرع الآن</button>
+             <button class="btn btn-primary" onclick="openDonationModal()">تبرع الآن</button>
              <p class="footer-note">أو اختر مستفيداً محدداً</p>
          </div>
          
@@ -438,6 +438,32 @@
             <p class="footer-copyright">جميع الحقوق محفوظة © 2024</p>
         </div>
     </footer>
+   <div class="donation-overlay" id="donationModal">
+    <div class="donation-modal-card">
+        <h3>تقديم تبرع جديد</h3>
+        
+        <div class="modal-form-group">
+            <label>اسم المتبرع</label>
+            <input type="text" id="modalDonorName" placeholder="اكتب اسمك هنا">
+        </div>
+
+        <div class="modal-form-group checkbox-group">
+            <label>
+                <input type="checkbox" id="modalAnonCheck"> التبرع كفاعل خير (إخفاء الاسم)
+            </label>
+        </div>
+
+        <div class="modal-form-group">
+            <label>قيمة التبرع (شيكل)</label>
+            <input type="number" id="modalAmount" placeholder="مثال: 500">
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-confirm" onclick="executeDonation()">تأكيد التبرع الآن</button>
+            <button class="btn-cancel" onclick="closeDonationModal()">إلغاء</button>
+        </div>
+    </div>
+   </div>
 
 
 
