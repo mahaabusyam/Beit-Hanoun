@@ -164,13 +164,14 @@ function executeDonation() {
   if (isAnonymous || nameInput === "") {
     finalName = "فاعل خير";
   }
-  
+
   const donationData = {
       name: finalName,
       amount: Number(amountInput).toLocaleString()
   };
-  
+
   saveDonationToStorage(donationData);
+
   addDonationToDOM(donationData.name, donationData.amount);
   
   document.getElementById('modalDonorName').value = "";
@@ -207,4 +208,5 @@ function loadDonations() {
     donations.forEach(donation => {
         addDonationToDOM(donation.name, donation.amount);
     });
-    }
+      }
+    
