@@ -146,39 +146,65 @@ function closeDonationModal() {
     document.getElementById('donationModal').classList.remove('show');
 }
 
+window.onload = function() {
+    loadDonations();
+};
+
 function executeDonation() {
-    let nameInput = document.getElementById('modalDonorName').value.trim();
-    const amountInput = document.getElementById('modalAmount').value.trim();
-    const isAnonymous = document.getElementById('modalAnonCheck').checked;
+  let nameInput = document.getElementById('modalDonorName').value.trim();
+  const amountInput = document.getElementById('modalAmount').value.trim();
+  const isAnonymous = document.getElementById('modalAnonCheck').checked;
+  
+  if (!amountInput) {
+    alert("يرجى إدخال قيمة التبرع");
+    return;
+  }
+  
+  let finalName = nameInput;
+  if (isAnonymous || nameInput === "") {
+    finalName = "فاعل خير";
+  }
+  
+  const donationData = {
+      name: finalName,
+      amount: Number(amountInput).toLocaleString()
+  };
+  
+  saveDonationToStorage(donationData);
+  addDonationToDOM(donationData.name, donationData.amount);
+  
+  document.getElementById('modalDonorName').value = "";
+  document.getElementById('modalAmount').value = "";
+  document.getElementById('modalAnonCheck').checked = false;
+  closeDonationModal();
+}
 
-    if (!amountInput) {
-        alert("يرجى إدخال قيمة التبرع");
-        return;
-    }
-
-    let finalName = nameInput;
-    if (isAnonymous || nameInput === "") {
-        finalName = "فاعل خير";
-    }
-
-    const recentList = document.querySelector('.recent-list');
-    const newItemHtml = `
+function addDonationToDOM(name, amount) {
+  const recentList = document.querySelector('.recent-list');
+  const newItemHtml = `
         <div class="recent-item" style="animation: fadeIn 0.5s ease-in-out;">
-            <div class="amount-tag">${Number(amountInput).toLocaleString()} شيكل</div>
+            <div class="amount-tag">${amount} شيكل</div>
             <div>
                 <div class="donor-info">
-                    <p class="donor-name">${finalName}</p>
+                    <p class="donor-name">${name}</p>
                     <p class="donor-time">منذ ثانية</p>
                 </div>
                 <div class="donor-avatar"><i class="fa-solid fa-user"></i></div>
             </div>
         </div>
     `;
-
-    recentList.insertAdjacentHTML('afterbegin', newItemHtml);
-
-    document.getElementById('modalDonorName').value = "";
-    document.getElementById('modalAmount').value = "";
-    document.getElementById('modalAnonCheck').checked = false;
-    closeDonationModal();
+  recentList.insertAdjacentHTML('afterbegin', newItemHtml);
 }
+
+function saveDonationToStorage(donation) {
+    let donations = localStorage.getItem('donations') ? JSON.parse(localStorage.getItem('donations')) : [];
+    donations.push(donation);
+    localStorage.setItem('donations', JSON.stringify(donations));
+}
+
+function loadDonations() {
+    let donations = localStorage.getItem('donations') ? JSON.parse(localStorage.getItem('donations')) : [];
+    donations.forEach(donation => {
+        addDonationToDOM(donation.name, donation.amount);
+    });
+    }
