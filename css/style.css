@@ -418,12 +418,18 @@ body {
   margin-bottom: 5px;
   letter-spacing: 1px;
   color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .currency {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
   margin-right: 5px;
+  display: inline-block;
 }
 
 .sub-text {
@@ -453,6 +459,11 @@ body {
   font-weight: bold;
   margin-bottom: 15px;
   color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .secondary-number span:last-child {
@@ -1454,4 +1465,26 @@ border-color: rgba(0, 150, 90, 0.6);
     }
 
 }
+
+.tooltip-trigger {
+  cursor: pointer;
+  position: relative;
+}
+
+.tooltip-trigger:hover::after,
+.tooltip-trigger:active::after {
+  content: attr(data-title);
+  position: absolute;
+  left: 240px; 
+  top: -20px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
 
